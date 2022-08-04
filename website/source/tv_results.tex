@@ -1,0 +1,32 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\usetikzlibrary{fillbetween}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+            ymode=log,
+            width=\linewidth,
+            height=0.5\linewidth,
+            legend style={draw=none,cells={anchor=west}},
+            legend columns=1,
+            xtick={-4,-3,-2,-1,0,1,2,3,4},
+            every axis plot post/.style={thick},
+            domain=-4:3.5
+        ]
+
+        \addplot[blue,name path=orig,domain=-4:3.5]
+        table[x=x,y=y,col sep=comma] {tvsmooth_orig.csv};
+
+        \addplot[red,name path=smooth,domain=-4:3.5]
+        table[x=x,y=y,col sep=comma] {tvsmooth.csv};
+
+        \legend{Original, TV-smoothed}
+    \end{axis}
+\end{tikzpicture}
+
+\end{document}

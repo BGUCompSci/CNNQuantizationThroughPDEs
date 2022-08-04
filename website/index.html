@@ -118,10 +118,49 @@
                 </div>
             </div>
             <div class="g-row">
+                <div class="g-col g-column story">
+                    <section class="g-col none g-column section">
+                        <h1>Treating Activation Error as Noise Using Total Variation</h1>
+                        <div class="g-column">
+                            <p>One of the most popular and effective approaches for image denoising is the
+                                Total Variation method:</p>
+                            <p>$$||u||_{TV(\Omega)} = \int_{\Omega}{\|\nabla u(x)\| dx}.$$</p>
+                            <p>We augment deep neural networks with the TV method as a non-pointwise activation function
+                                at each layer.
+                                We minimize the TV norm to encourage piecewise-constant images, thereby obtaining
+                                smaller quantization error when quantizing the images.</p>
+                            <p>Smoothing with Total Variation reduces outliers and creates a more uniform distribution
+                                of values in the image.</p>
+                            <p>In summary, at each nonlinear activation in the network, we apply the edge-aware
+                                denoising step:</p>
+                            <p>$$S(\mathbf{x}) = \mathbf{x} - \gamma^2(\mathbf{D}_x + \mathbf{D}_y)\mathbf{x}.$$</p>
+                            <p>To test the theory, we applied the TV method to the ResNet50, ResNet20 and DeepLab
+                                architectures.</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="g-col g-column story">
+                    <section class="g-col none g-column section">
+                        <div class="g-column">
+                            <figure class="figure">
+                                <img src="assets/tv1.png" role="img" class="image"
+                                    title="Example image before TV denoising">
+                                <img src="assets/tv1.png" role="img" class="image"
+                                    title="Example image after TV denoising">
+                                <figcaption>An example of a feature map from the 4th layer of the ResNet50 encoder for
+                                    an image. The feature map is shown before and after 3 iterations of the
+                                    TV-smoothing operator. Fine details are preserved after smoothing.
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="g-row">
                 <section class="g-col none g-column section">
                     <h2>Experimental Results</h2>
                     <figure>
-                        <img src="assets/results_figures.svg" title="Results">
+                        <img src="assets/stability_results.svg" title="Results for stability experiments">
                         <figcaption>Per-layer MSE between activation maps of symmetric and non-symmetric network
                             pairs. Each line represents a pair of networks where one has quantized activation maps
                             and the other does not. The values are normalized per-layer to account for the different
@@ -132,6 +171,14 @@
                             MobileNetV2/CIFAR-100. Both networks in each pair achieve comparable classification
                             accuracy.</figcaption>
                     </figure>
+                    <figure style="width:50%">
+                        <img src="assets/tv_results.svg" title="Results for TV experiments">
+                        <figcaption>The value distributions for a feature map from the 4th layer of a ResNet50 encoder,
+                            with and without TV smoothing.
+                            The smoothing eliminates outliers in addition to denoising the image.
+                            The distributions in (c) have been smoothed slightly for improved visual clarity.
+                        </figcaption>
+                        </figure>
                 </section>
             </div>
         </div>

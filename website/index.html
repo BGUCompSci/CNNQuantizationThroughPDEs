@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Quantized Convolutional Neural Networks Through the Lens of Partial Differential Equations</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+</head>
+
+<body>
+    <div id="content">
+        <div class="wrapper">
+            <header class="g-col none g-column header">
+                <div class="g-row">
+                    <h1 class="headline">
+                        <strong>Quantized Convolutional Neural Networks Through the Lens of Partial Differential
+                            Equations</strong>
+                    </h1>
+                    <div class="g-row none">
+                        <div class="logo">
+                            <img src="assets/bgu.svg" role="img" class="image" title="Ben-Gurion University of the Negev">
+                        </div>
+                    </div>
+                    <div class="attribution">
+                        <div>
+                            <strong>Ido Ben-Yair, Gil Ben Shalom<br />Moshe Eliasof and Eran Treister</strong>
+                        </div>
+                        <div>Ben-Gurion University of the Negev, Israel</div>
+                    </div>
+                </div>
+                <div class="links">
+                    <span><a href="https://arxiv.org/abs/2109.00095/">Paper</a></span>
+                    |
+                    <span><a href="https://www.github.com/BGUCompSci/CNNQuantizationThroughPDEs/">Code</a></span>
+                </div>
+                <div class="g-col g-column none abstract">
+                    <p><strong>Abstract. </strong>Quantization of Convolutional Neural Networks (CNNs) is a common
+                        approach to ease the
+                        computational burden involved in the deployment of CNNs, especially on low-resource edge
+                        devices. However, fixed-point arithmetic is not natural to the type of computations involved in
+                        neural networks. In this work, we explore ways to improve quantized CNNs using PDE-based
+                        perspective and analysis. First, we harness the total variation (TV) approach to apply
+                        edge-aware smoothing to the feature maps throughout the network. This aims to reduce outliers in
+                        the distribution of values and promote piece-wise constant maps, which are more suitable for
+                        quantization. Secondly, we consider symmetric and stable variants of common CNNs for image
+                        classification, and Graph Convolutional Networks (GCNs) for graph node-classification. We
+                        demonstrate through several experiments that the property of forward stability preserves the
+                        action of a network under different quantization rates. As a result, stable quantized networks
+                        behave similarly to their non-quantized counterparts even though they rely on fewer parameters.
+                        We also find that at times, stability even aids in improving accuracy. These properties are of
+                        particular interest for sensitive, resource-constrained, low-power or real-time applications
+                        like autonomous driving.
+                    </p>
+                </div>
+            </header>
+            <div class="g-row">
+                <div class="g-col g-column story">
+                    <section class="g-col none g-column section">
+                        <h2>Introduction</h2>
+                        <div class="g-column">
+                            <p>Quantization of neural network weights and activation maps are useful for network
+                                compression and for running on resource-constrainged edge devices such as autonomous
+                                vehicles.</p>
+                            <p>But, quantization is a source of noise for our networks.</p>
+                            <p>By treating the network as a discretization of a partial differential equation, we can
+                                treat this noise as error and apply PDE stability theory to mitigate its impact.</p>
+                            <p>We show that we get lighter models without harming performance by much.</p>
+                            <p>The <strong>symmetric variant</strong> of a ResNet layer together with the activation
+                                quantization
+                                operator is given as follows:</p>
+                            <p>$$\mathbf{x}_{j+1} = Q_b(\mathbf{x}_j - h \mathbf{K}_j^\top\
+                                Q_b(\sigma(\mathbf{K}_j\mathbf{x}_j))),$$</p>
+                            <p>As well as a symmetric variant of MobileNetV2:</p>
+                            <p>$$\mathbf{x}_{j+1} = \mathbf{x}_j - (\mathbf{K}_{1, j})^\top((\mathbf{K}_{2,
+                                j})^\top\sigma (\mathbf{K}_{2, j}\mathbf{K}_{1, j}\mathbf{x}_j)),$$</p>
+                            <p>This is due to the observation that the Jacobian of the layer, \(\mathbf{J}_j =
+                                \mathbf{I} -h\mathbf{K}_j^\top\mathbf{\Omega}\mathbf{K}_j\), propagates the error to
+                                the next layer, therefore for a proper choice of h, we obtain a positive semi-definite
+                                Jacobian.</p>
+                            <p>We also study the importance of stability for quantized Graph Convolution Networks. We
+                                use a diffusive PDE-GCN architecture, which operates on unstructured graphs:</p>
+                            <p>$$\mathbf{x}_{j+1} = \mathbf{x}_j - h \mathbf{S}_j^{\top} \mathbf{K}_j^{\top}
+                                \sigma(\mathbf{K}_j \mathbf{S}_j \mathbf{x}_j).$$</p>
+                            <p>As opposed to a non-symmetric diffusive residual layer:</p>
+                            <p>$$\mathbf{x}_{j+1} = \mathbf{x}_j - h \mathbf{S}_j^{\top} \mathbf{K}_{j_2}
+                                \sigma(\mathbf{K}_{j_{1}} \mathbf{S}_j \mathbf{x}_j)$$</p>
+                        </div>
+                    </section>
+                    <section class="g-col none g-column section">
+                        <h2>Results</h2>
+                        <figure>
+                            <img src="assets/results_figures.svg" title="Results">
+                            <figcaption>Per-layer MSE between activation maps of symmetric and non-symmetric network
+                                pairs. Each line represents a pair of networks where one has quantized activation maps
+                                and the other does not. The values are normalized per-layer to account for the different
+                                dimensions of each layer. In all cases, the symmetric variants (in red) exhibit a
+                                bounded divergence from full-precision activations, while the non-symmetric networks
+                                diverge as the information propagates through the layers (in blue). Hence, they are
+                                unstable. Top to bottom: ResNet56/CIFAR-10, ResNet56/CIFAR-100 and
+                                MobileNetV2/CIFAR-100. Both networks in each pair achieve comparable classification
+                                accuracy.</figcaption>
+                        </figure>
+                    </section>
+                </div>
+                <div class="g-col g-column story">
+                    <section class="g-col none g-column section">
+                        <div class="g-column">
+                            <figure class="figure">
+                                <img src="assets/stable_resnet_block.svg" role="img" class="image" title="Stable ResNet Block">
+                                <figcaption>Schematic diagram of our symmetric ResNet block which yields a symmetric and
+                                    positive-definite layer.</figcaption>
+                            </figure>
+                        </div>
+                    </section>
+                    <section class="g-col none g-column section">
+                        <h2>Quantization-aware Training</h2>
+                        <div class="g-column">
+                            <p>We restrict the values of the weights and activations to a smaller set, so that after
+                                training, the calculation of a prediction by the network can be carried out in
+                                <strong>fixed-point</strong> integer arithmetic using a quantization operator:
+                            </p>
+                            <p>$$q_b(t) = \frac{\mbox{round}((2^b - 1) \cdot t)}{2^b - 1},$$
+                                $$w_b = Q_b(w) = \alpha_w q_{b-1}\left(\mbox{clip}\left(\frac{w}{\alpha_w}, -1,
+                                1\right)\right),$$
+                                $$x_b = Q_b(x) = \alpha_x q_{b}\left(\mbox{clip}\left(\frac{x}{\alpha_x}, 0,
+                                1\right)\right).$$</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+\documentclass[varwidth]{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{axis}[
+            width=\linewidth,
+            height=0.5\linewidth,
+            grid=major,
+            grid style={dashed,gray!30},
+            xlabel=Layer,
+            ylabel=MSE,
+            ylabel near ticks,
+            legend style={at={(0.6,-0.25)},anchor=north,scale=0.8, draw=none, cells={anchor=west}},
+            legend columns=-1,
+            xtick={1,7,14,21,26},
+            yticklabel style={
+                    /pgf/number format/fixed,
+                    /pgf/number format/precision=3
+                },
+            scaled y ticks=false,
+            every axis plot post/.style={thick},
+        ]
+        \addplot
+        table[x=layer,y=unstable,col sep=comma] {resnet56_vs_stablenet56_layerwise_mse_cifar10.csv};
+
+
+        \addplot
+        table[x=layer,y=stable,col sep=comma] {resnet56_vs_stablenet56_layerwise_mse_cifar10.csv};
+
+        \legend{ResNet56, Sym. ResNet56}
+    \end{axis}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    \begin{axis}[
+            width=\linewidth,
+            height=0.5\linewidth,
+            grid=major,
+            grid style={dashed,gray!30},
+            xlabel=Layer,
+            ylabel=MSE,
+            ylabel near ticks,
+            legend style={at={(0.5,-0.25)},anchor=north,scale=0.8, draw=none, cells={anchor=west}},
+            legend columns=-1,
+            xtick={1,7,14,21,26},
+            yticklabel style={
+                    /pgf/number format/fixed,
+                    /pgf/number format/precision=2
+                },
+            scaled y ticks=false,
+            every axis plot post/.style={thick},
+        ]
+
+        \addplot
+        table[x=layer,y=unstable,col sep=comma] {resnet56_vs_stablenet56_layerwise_mse_cifar100.csv};
+
+        \addplot
+        table[x=layer,y=stable,col sep=comma] {resnet56_vs_stablenet56_layerwise_mse_cifar100.csv};
+
+        \legend{ResNet56, Sym. ResNet56}
+    \end{axis}
+\end{tikzpicture}
+\begin{tikzpicture}
+    \begin{axis}[
+            width=\linewidth,
+            height=0.5\linewidth,
+            grid=major,
+            grid style={dashed,gray!30},
+            xlabel=Layer,
+            ylabel=MSE,
+            ylabel near ticks,
+            legend style={at={(0.5,-0.25)},anchor=north,scale=0.8, draw=none, cells={anchor=west}},
+            legend columns=-1,
+            xtick={1,6,12,16},
+            yticklabel style={
+                    /pgf/number format/fixed,
+                    /pgf/number format/precision=2
+                },
+            scaled y ticks=false,
+            every axis plot post/.style={thick},
+        ]
+        \addplot
+        table[x=layer,y=unstable,col sep=comma] {mobilenetv2_layerwise_mse_cifar100.csv};
+
+        \addplot
+        table[x=layer,y=stable,col sep=comma] {mobilenetv2_layerwise_mse_cifar100.csv};
+        \legend{MobileNetV2, Sym. MobileNetV2}
+    \end{axis}
+\end{tikzpicture}
+\end{document}

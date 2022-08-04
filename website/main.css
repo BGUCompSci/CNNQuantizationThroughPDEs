@@ -1,3 +1,7 @@
+html * {
+    max-height: 1000000px;
+}
+
 html,
 body,
 div,
@@ -18,9 +22,8 @@ section {
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline
+    vertical-align: baseline;
+    width: 100%;
 }
 
 article,
@@ -30,7 +33,17 @@ section {
 }
 
 body {
-    line-height: 1
+    line-height: 1;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    font-family: "Computer Modern Sans", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.3em;
+    color: #242729;
+    background: #FFF;
+    justify-content: center;
 }
 
 ul {
@@ -148,32 +161,22 @@ h1,
 h2,
 h3 {
     line-height: 1.3;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    /* margin-top: 1em; */
+    margin-bottom: 0.8em;
 }
 
 h1 {
-    font-size: 22px
+    font-size: 22px;
+    font-weight: bold;
 }
 
 h2 {
-    font-size: 18px
+    font-size: 18px;
+    font-weight: bold;
 }
 
 h3 {
-    font-size: 15px
-}
-
-body {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: column nowrap;
-    flex-flow: column nowrap;
-    font-family: "Computer Modern Sans", Helvetica, Arial, sans-serif;
     font-size: 15px;
-    line-height: 1.3em;
-    color: #242729;
-    background: #FFF;
 }
 
 #content {
@@ -195,24 +198,110 @@ body {
     clear: both
 }
 
-@media screen {
+.headline,
+.caption {
+    margin-bottom: 0;
+    line-height: 1.15384615;
+}
 
-    .spoiler:not(:hover) {
-        color: rgba(255, 248, 220, 0)
+.subheading,
+.category {
+    margin-bottom: 0;
+    line-height: 1.30769231
+}
+
+.headline {
+    font-size: 27px;
+    width: 33%
+}
+
+.attribution {
+    text-align: right;
+    font-size: 18px;
+    width: 33%;
+}
+
+.caption {
+    font-size: 14px
+}
+
+.header .g-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper {
+    margin: 24px 0
+}
+
+.story {
+    max-width: 50%;
+}
+
+.story:first-child {
+    padding-right: 48px;
+}
+
+
+.section {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.story-item {
+    max-width: 56em !important
+}
+
+.image {
+    width: 100%;
+    height: auto
+}
+
+figure {
+    margin: 0;
+    margin-block: 0;
+}
+
+figcaption {
+    text-align: justify;
+    font-style: italic;
+}
+
+.header>div {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+
+#bgu-logo {
+    width: 12%;
+}
+
+.abstract {
+    font-size: 18px;
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 1em;
+}
+
+.header .abstract p:last-of-type {
+    margin-bottom: 0
+}
+
+.links {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media screen and (min-width:320px) and (max-width:1024px) {
+    .headline {
+        width: 50%;
     }
 
-    .spoiler:not(:hover)>* {
-        opacity: 0
-    }
-
-    .diffs .spoiler:not(:hover),
-    .body-diffs .spoiler:not(:hover) {
-        color: rgba(255, 248, 220, 0.003)
-    }
-
-    .diffs .spoiler:not(:hover)>*,
-    .body-diffs .spoiler:not(:hover)>* {
-        opacity: .3
+    .attribution {
+        font-size: 14px;
     }
 }
 
@@ -243,99 +332,4 @@ body {
         overflow-y: auto;
         border: none
     }
-}
-
-.headline,
-.caption {
-    margin-bottom: 0;
-    line-height: 1.15384615;
-    width: 35%;
-}
-
-.subheading,
-.body2,
-.body1,
-.category {
-    margin-bottom: 0;
-    line-height: 1.30769231
-}
-
-.headline {
-    font-size: 27px;
-}
-
-.attribution {
-    text-align: right;
-    font-size: large;
-}
-
-.caption {
-    font-size: 14px
-}
-
-header .g-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.wrapper {
-    margin: 24px 0
-}
-
-.story {
-    max-width: 50%;
-}
-
-.story:first-child {
-    padding-right: 48px;
-}
-
-
-.section {
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-
-.section h2 {
-    font-weight: bold;
-}
-
-.story-item {
-    max-width: 56em !important
-}
-
-.image {
-    width: 100%;
-    height: auto
-}
-
-figure {
-    margin: 0;
-    margin-block: 0;
-}
-
-.logo {
-    width: 64px;
-    height: 64px;
-}
-
-.header>div {
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
-}
-
-.header .abstract {
-    font-size: 18px;
-    text-align: justify;
-    text-justify: inter-word;
-}
-
-.header .abstract p:last-of-type {
-    margin-bottom: 0
-}
-
-.links {
-    font-size: 20px;
-    font-weight: bolder;
 }

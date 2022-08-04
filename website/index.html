@@ -21,10 +21,8 @@
                         <strong>Quantized Convolutional Neural Networks Through the Lens of Partial Differential
                             Equations</strong>
                     </h1>
-                    <div class="g-row none">
-                        <div class="logo">
-                            <img src="assets/bgu.svg" role="img" class="image" title="Ben-Gurion University of the Negev">
-                        </div>
+                    <div id="bgu-logo">
+                        <img src="assets/bgu.svg" role="img" class="image" title="Ben-Gurion University of the Negev">
                     </div>
                     <div class="attribution">
                         <div>
@@ -61,7 +59,7 @@
             <div class="g-row">
                 <div class="g-col g-column story">
                     <section class="g-col none g-column section">
-                        <h2>Introduction</h2>
+                        <h1>Stable Architectures for Quantized Residual Networks</h1>
                         <div class="g-column">
                             <p>Quantization of neural network weights and activation maps are useful for network
                                 compression and for running on resource-constrainged edge devices such as autonomous
@@ -91,34 +89,20 @@
                                 \sigma(\mathbf{K}_{j_{1}} \mathbf{S}_j \mathbf{x}_j)$$</p>
                         </div>
                     </section>
-                    <section class="g-col none g-column section">
-                        <h2>Results</h2>
-                        <figure>
-                            <img src="assets/results_figures.svg" title="Results">
-                            <figcaption>Per-layer MSE between activation maps of symmetric and non-symmetric network
-                                pairs. Each line represents a pair of networks where one has quantized activation maps
-                                and the other does not. The values are normalized per-layer to account for the different
-                                dimensions of each layer. In all cases, the symmetric variants (in red) exhibit a
-                                bounded divergence from full-precision activations, while the non-symmetric networks
-                                diverge as the information propagates through the layers (in blue). Hence, they are
-                                unstable. Top to bottom: ResNet56/CIFAR-10, ResNet56/CIFAR-100 and
-                                MobileNetV2/CIFAR-100. Both networks in each pair achieve comparable classification
-                                accuracy.</figcaption>
-                        </figure>
-                    </section>
                 </div>
                 <div class="g-col g-column story">
                     <section class="g-col none g-column section">
                         <div class="g-column">
                             <figure class="figure">
-                                <img src="assets/stable_resnet_block.svg" role="img" class="image" title="Stable ResNet Block">
+                                <img src="assets/stable_resnet_block.svg" role="img" class="image"
+                                    title="Stable ResNet Block" style="width: 100%; height: auto;">
                                 <figcaption>Schematic diagram of our symmetric ResNet block which yields a symmetric and
                                     positive-definite layer.</figcaption>
                             </figure>
                         </div>
                     </section>
                     <section class="g-col none g-column section">
-                        <h2>Quantization-aware Training</h2>
+                        <h2>Quantization-Aware Training</h2>
                         <div class="g-column">
                             <p>We restrict the values of the weights and activations to a smaller set, so that after
                                 training, the calculation of a prediction by the network can be carried out in
@@ -132,6 +116,23 @@
                         </div>
                     </section>
                 </div>
+            </div>
+            <div class="g-row">
+                <section class="g-col none g-column section">
+                    <h2>Experimental Results</h2>
+                    <figure>
+                        <img src="assets/results_figures.svg" title="Results">
+                        <figcaption>Per-layer MSE between activation maps of symmetric and non-symmetric network
+                            pairs. Each line represents a pair of networks where one has quantized activation maps
+                            and the other does not. The values are normalized per-layer to account for the different
+                            dimensions of each layer. In all cases, the symmetric variants (in red) exhibit a
+                            bounded divergence from full-precision activations, while the non-symmetric networks
+                            diverge as the information propagates through the layers (in blue). Hence, they are
+                            unstable. Top to bottom: ResNet56/CIFAR-10, ResNet56/CIFAR-100 and
+                            MobileNetV2/CIFAR-100. Both networks in each pair achieve comparable classification
+                            accuracy.</figcaption>
+                    </figure>
+                </section>
             </div>
         </div>
     </div>

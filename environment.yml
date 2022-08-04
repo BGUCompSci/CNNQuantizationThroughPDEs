@@ -1,0 +1,16 @@
+name: cnnquantpdes
+channels:
+  - nvidia
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - nvidia::cudatoolkit=11.0.1
+  - fire
+  - matplotlib
+  - numpy
+  - scipy
+  - wandb

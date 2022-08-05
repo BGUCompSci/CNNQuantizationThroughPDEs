@@ -171,12 +171,13 @@ h1 {
 }
 
 h2 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 h3 {
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #content {

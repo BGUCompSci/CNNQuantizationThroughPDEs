@@ -278,6 +278,11 @@ figcaption {
     width: 12%;
 }
 
+.journal {
+    font-size: large;
+    font-style: italic;
+}
+
 .abstract {
     font-size: 18px;
     text-align: justify;
